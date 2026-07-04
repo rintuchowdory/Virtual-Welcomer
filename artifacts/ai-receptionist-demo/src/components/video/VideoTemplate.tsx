@@ -4,6 +4,8 @@ import { useVideoPlayer } from '@/lib/video';
 import { Greeting } from './video_scenes/Greeting';
 import { Listening } from './video_scenes/Listening';
 import { Services } from './video_scenes/Services';
+import { Simultaneous } from './video_scenes/Simultaneous';
+import { Multilingual } from './video_scenes/Multilingual';
 import { Booking } from './video_scenes/Booking';
 import { Outro } from './video_scenes/Outro';
 
@@ -11,6 +13,8 @@ export const SCENE_DURATIONS = {
   greeting: 3500,
   listening: 4500,
   services: 4500,
+  simultaneous: 4500,
+  multilingual: 4500,
   booking: 4000,
   outro: 3500,
 };
@@ -19,6 +23,8 @@ const SCENE_COMPONENTS: Record<string, React.ComponentType> = {
   greeting: Greeting,
   listening: Listening,
   services: Services,
+  simultaneous: Simultaneous,
+  multilingual: Multilingual,
   booking: Booking,
   outro: Outro,
 };
@@ -76,24 +82,24 @@ export default function VideoTemplate({
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{ backgroundImage: `url(${import.meta.env.BASE_URL}images/bg.png)` }}
           animate={{
-            scale: [1.1, 1.15, 1.05, 1.1, 1.15][sceneIndex] ?? 1.1,
-            opacity: [0.3, 0.4, 0.2, 0.5, 0.2][sceneIndex] ?? 0.3,
+            scale: [1.1, 1.15, 1.05, 1.1, 1.05, 1.15, 1.1][sceneIndex] ?? 1.1,
+            opacity: [0.3, 0.4, 0.2, 0.35, 0.25, 0.45, 0.2][sceneIndex] ?? 0.3,
           }}
           transition={{ duration: 3, ease: 'easeInOut' }}
         />
         <motion.div className="absolute w-[80vw] h-[80vw] rounded-full opacity-20 blur-[100px]"
           style={{ background: 'radial-gradient(circle, #06b6d4, transparent)' }}
           animate={{
-            x: (['-20%', '30%', '10%', '40%', '-10%'][sceneIndex] ?? '-20%'),
-            y: (['10%', '-20%', '30%', '10%', '0%'][sceneIndex] ?? '10%'),
-            scale: [1, 1.2, 0.9, 1.1, 1][sceneIndex] ?? 1,
+            x: (['-20%', '30%', '10%', '40%', '-10%', '20%', '-20%'][sceneIndex] ?? '-20%'),
+            y: (['10%', '-20%', '30%', '10%', '0%', '-15%', '10%'][sceneIndex] ?? '10%'),
+            scale: [1, 1.2, 0.9, 1.1, 0.95, 1.15, 1][sceneIndex] ?? 1,
           }}
           transition={{ duration: 4, ease: 'easeInOut' }} />
         <motion.div className="absolute w-[60vw] h-[60vw] rounded-full opacity-15 blur-[100px] right-0 bottom-0"
           style={{ background: 'radial-gradient(circle, #8b5cf6, transparent)' }}
           animate={{
-            x: (['20%', '-10%', '-30%', '10%', '20%'][sceneIndex] ?? '20%'),
-            y: (['-10%', '20%', '-10%', '-30%', '10%'][sceneIndex] ?? '-10%'),
+            x: (['20%', '-10%', '-30%', '10%', '20%', '-20%', '20%'][sceneIndex] ?? '20%'),
+            y: (['-10%', '20%', '-10%', '-30%', '10%', '25%', '-10%'][sceneIndex] ?? '-10%'),
           }}
           transition={{ duration: 5, ease: 'easeInOut' }} />
       </div>
