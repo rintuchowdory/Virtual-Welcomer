@@ -10,6 +10,12 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: services
+    description: Receptionist service catalog
+  - name: conversations
+    description: Chat conversations with the AI receptionist
+  - name: appointments
+    description: Appointment booking
 paths:
   /healthz:
     get:
@@ -24,6 +30,131 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /services:
+    get:
+      operationId: listServices
+      tags: [services]
+      summary: List services offered by the receptionist
+      responses:
+        "200":
+          description: List of services
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Service"
+
+  /conversations:
+    post:
+      operationId: createConversation
+      tags: [conversations]
+      summary: Start a new conversation
+      responses:
+        "201":
+          description: Created conversation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Conversation"
+
+  /conversations/{id}/messages:
+    get:
+      operationId: listConversationMessages
+      tags: [conversations]
+      summary: List messages in a conversation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Message"
+    post:
+      operationId: sendConversationMessage
+      tags: [conversations]
+      summary: Send a message and stream the assistant's reply (SSE)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MessageInput"
+      responses:
+        "200":
+          description: Server-sent event stream of assistant reply chunks
+          content:
+            text/event-stream:
+              schema:
+                type: string
+
+  /appointments:
+    get:
+      operationId: listAppointments
+      tags: [appointments]
+      summary: List booked appointments
+      responses:
+        "200":
+          description: List of appointments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Appointment"
+    post:
+      operationId: createAppointment
+      tags: [appointments]
+      summary: Book a new appointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppointmentInput"
+      responses:
+        "201":
+          description: Created appointment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Appointment"
+
+  /appointments/availability:
+    get:
+      operationId: getAppointmentAvailability
+      tags: [appointments]
+      summary: Get available time slots for a given date
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Available time slots
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Availability"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +165,112 @@ components:
       required:
         - status
 
+    Service:
+      type: object
+      required: [id, name, description, durationMinutes, icon]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        durationMinutes:
+          type: integer
+        icon:
+          type: string
+
+    Conversation:
+      type: object
+      required: [id, createdAt]
+      properties:
+        id:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+
+    Message:
+      type: object
+      required: [id, conversationId, role, content, createdAt]
+      properties:
+        id:
+          type: integer
+        conversationId:
+          type: integer
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    MessageInput:
+      type: object
+      required: [content]
+      properties:
+        content:
+          type: string
+          minLength: 1
+
+    Appointment:
+      type: object
+      required: [id, name, email, service, date, time, status, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        service:
+          type: string
+        date:
+          type: string
+          format: date
+        time:
+          type: string
+        notes:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [confirmed, cancelled]
+        createdAt:
+          type: string
+          format: date-time
+
+    AppointmentInput:
+      type: object
+      required: [name, email, service, date, time]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        service:
+          type: string
+          minLength: 1
+        date:
+          type: string
+          format: date
+        time:
+          type: string
+          minLength: 1
+        notes:
+          type: string
+
+    Availability:
+      type: object
+      required: [date, slots]
+      properties:
+        date:
+          type: string
+          format: date
+        slots:
+          type: array
+          items:
+            type: string
