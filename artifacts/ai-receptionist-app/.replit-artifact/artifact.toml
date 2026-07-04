@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "AI Receptionist"
+version = "1.0.0"
+id = "artifacts/ai-receptionist-app"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25839
+
+[services.development]
+run = "pnpm --filter @workspace/ai-receptionist-app run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ai-receptionist-app", "run", "build" ]
+publicDir = "artifacts/ai-receptionist-app/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25839"
+BASE_PATH = "/"
