@@ -1,0 +1,25 @@
+uploads = []
+
+[[generated]]
+id = "DRdFXQJM1QoES9GlnRX4F"
+uri = "file://artifacts/ai-receptionist-demo/public/images/avatar.png"
+type = "image"
+title = "Futuristic AI avatar face"
+
+[[generated]]
+id = "5NDKFf0BuiyLE-JT1i7fJ"
+uri = "file://artifacts/ai-receptionist-demo/public/images/calendar.png"
+type = "image"
+title = "Calendar booking icon"
+
+[[generated]]
+id = "avw4FH9VY9KTA5ldfHvL0"
+uri = "file://artifacts/ai-receptionist-demo/public/images/bg.png"
+type = "image"
+title = "Abstract tech background"
+
+[[outputs]]
+id = "w43WIzEgLatJRR7Vz5dt4"
+uri = "file://artifacts/ai-receptionist-demo/public/audio/bg_music.mp3"
+type = "audio"
+title = "background music"
