@@ -1,0 +1,5 @@
+{
+  "buildCommand": "pnpm --filter @workspace/ai-receptionist-app run build",
+  "outputDirectory": "artifacts/ai-receptionist-app/dist/public",
+  "installCommand": "pnpm install --frozen-lockfile"
+}
