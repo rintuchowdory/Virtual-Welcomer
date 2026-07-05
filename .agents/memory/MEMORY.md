@@ -1,0 +1,1 @@
+- [Orval date query/param coercion](orval-date-query-coercion.md) — GET date query/path params 400 "Expected date, received string" unless 'date' added to orval coerce.query/param lists.

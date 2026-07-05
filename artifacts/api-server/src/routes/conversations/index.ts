@@ -8,7 +8,7 @@ import {
   SendConversationMessageParams,
   SendConversationMessageBody,
 } from "@workspace/api-zod";
-import { openai, RECEPTIONIST_SYSTEM_PROMPT } from "../../lib/openai";
+import { openai, CHAT_MODEL, RECEPTIONIST_SYSTEM_PROMPT } from "../../lib/openai";
 
 const router: IRouter = Router();
 
@@ -77,7 +77,7 @@ router.post("/conversations/:id/messages", async (req, res): Promise<void> => {
 
   try {
     const stream = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: CHAT_MODEL,
       stream: true,
       messages: [
         { role: "system", content: RECEPTIONIST_SYSTEM_PROMPT },

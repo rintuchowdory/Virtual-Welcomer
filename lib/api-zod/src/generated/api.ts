@@ -124,7 +124,7 @@ export const CreateAppointmentResponse = zod.object({
  * @summary Get available time slots for a given date
  */
 export const GetAppointmentAvailabilityQueryParams = zod.object({
-  "date": zod.date()
+  "date": zod.coerce.date()
 })
 
 export const GetAppointmentAvailabilityResponse = zod.object({

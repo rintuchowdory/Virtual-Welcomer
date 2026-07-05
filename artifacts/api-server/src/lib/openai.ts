@@ -1,12 +1,17 @@
 import OpenAI from "openai";
 
-if (!process.env.OPENAI_API_KEY) {
+if (!process.env.GROQ_API_KEY) {
   throw new Error(
-    "OPENAI_API_KEY must be set. Did you forget to add it as a secret?",
+    "GROQ_API_KEY must be set. Did you forget to add it as a secret?",
   );
 }
 
-export const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+export const openai = new OpenAI({
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
+});
+
+export const CHAT_MODEL = "llama-3.3-70b-versatile";
 
 export const RECEPTIONIST_SYSTEM_PROMPT = `You are Ava, a friendly and professional AI virtual receptionist for a business.
 Your job is to greet visitors, answer questions about the business's services, and help them book appointments.
