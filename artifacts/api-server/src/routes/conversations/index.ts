@@ -8,7 +8,7 @@ import {
   SendConversationMessageParams,
   SendConversationMessageBody,
 } from "@workspace/api-zod";
-import { openai, CHAT_MODEL, RECEPTIONIST_SYSTEM_PROMPT } from "../../lib/openai";
+import { openai, CHAT_MODEL, RECEPTIONIST_SYSTEM_PROMPT } from "../../lib/openai.js";
 
 const router: IRouter = Router();
 
