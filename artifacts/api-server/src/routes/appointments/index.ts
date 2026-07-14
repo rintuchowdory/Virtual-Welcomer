@@ -1,6 +1,5 @@
 import { Router, type IRouter } from "express";
-import { eq, asc } from "drizzle-orm";
-import { db, appointmentsTable } from "@workspace/db";
+import { db, appointmentsTable, eq, asc } from "@workspace/db";
 import {
   ListAppointmentsResponse,
   CreateAppointmentBody,
