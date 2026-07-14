@@ -5,7 +5,7 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-import type { MessageRole } from './messageRole';
+import type { MessageRole } from './messageRole.js';
 
 export interface Message {
   id: number;

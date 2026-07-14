@@ -6,14 +6,14 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export * from './appointment';
-export * from './appointmentInput';
-export * from './appointmentStatus';
-export * from './availability';
-export * from './conversation';
-export * from './getAppointmentAvailabilityParams';
-export * from './healthStatus';
-export * from './message';
-export * from './messageInput';
-export * from './messageRole';
-export * from './service';
+export * from './appointment.js';
+export * from './appointmentInput.js';
+export * from './appointmentStatus.js';
+export * from './availability.js';
+export * from './conversation.js';
+export * from './getAppointmentAvailabilityParams.js';
+export * from './healthStatus.js';
+export * from './message.js';
+export * from './messageInput.js';
+export * from './messageRole.js';
+export * from './service.js';
